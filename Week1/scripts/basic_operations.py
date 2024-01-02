@@ -1,3 +1,4 @@
+
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
@@ -61,7 +62,55 @@ copiedImg[40:40+roiHeight, 330:330+roiWidth] = copyRoi
 
 # display the output
 plt.figure(figsize=[15, 15], facecolor='black', edgecolor='blue', )
-plt.subplot(131);plt.imshow(img[...,::-1]);plt.title("original img")
-plt.subplot(132);plt.imshow(copiedImg[...,::-1]);plt.title("modified img")
-plt.subplot(133);x = [10, 20, 50, 20];plt.pie(x, colors="r")
+plt.subplot(131); plt.imshow(img[..., ::-1]); plt.title("original img")
+plt.subplot(132); plt.imshow(copiedImg[..., ::-1]); plt.title("modified img")
+plt.subplot(133); x = [10, 20, 50, 20]; plt.pie(x, colors="r")
+plt.show()
+
+
+# resize image
+resizeWidth = 300
+resizeheight = 200
+resizedDown = cv2.resize(img, (resizeWidth, resizeheight),
+                         interpolation=cv2.INTER_LINEAR)
+
+print("size ", resizedDown.shape)
+
+resizeWidthUp = 1080
+resizeheightUp = 720
+resizedUp = cv2.resize(img, (resizeWidthUp, resizeheightUp),
+                       interpolation=cv2.INTER_LINEAR)
+
+print("size resizedUp ", resizedUp.shape)
+
+plt.figure(figsize=[15, 15], facecolor='black', edgecolor='blue', )
+plt.subplot(131);plt.imshow(img[:, :, ::-1]);plt.title("img")
+plt.subplot(132);plt.imshow(resizedDown[:, :, ::-1]);plt.title("down img")
+plt.subplot(133);plt.imshow(resizedUp[:, :, ::-1]);plt.title("up img")
+plt.show()
+
+
+resizedDown = cv2.resize(img, None, fx=1.5, fy=3.5,
+                         interpolation=cv2.INTER_LINEAR)
+
+print("size ", resizedDown.shape)
+
+plt.figure(figsize=[15, 15], facecolor='black', edgecolor='blue', )
+plt.subplot(121);plt.imshow(img[:, :, ::-1]);plt.title("img")
+plt.subplot(122);plt.imshow(resizedDown[:, :, ::-1]);plt.title("down img")
+plt.show()
+
+# image mask
+mask1 = np.zeros_like(img)
+mask1[50:200, 170:320] = 255
+plt.figure(figsize=[15, 15], facecolor='black', edgecolor='blue', )
+plt.subplot(121); plt.imshow(img[:, :, ::-1]); plt.title("img")
+plt.subplot(122); plt.imshow(mask1[:, :, ::-1]); plt.title("mask img")
+plt.show()
+
+# mask using pixel intensity or color
+dst = cv2.inRange(img, (0, 0, 150), (100, 100, 255))
+plt.figure(figsize=[15, 15], facecolor='black', edgecolor='blue', )
+plt.subplot(121); plt.imshow(img[:, :, ::-1]); plt.title("img")
+plt.subplot(122); plt.imshow(dst); plt.title("red color mask img")
 plt.show()
