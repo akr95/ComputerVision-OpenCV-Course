@@ -27,7 +27,6 @@ while cap.isOpened():
     ret, frame = cap.read()
     if ret:
         out.write(frame)
-        print(frame)
         # grey = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         cv2.imshow("frame ", frame)
         # cv2.imshow("grey", grey)
