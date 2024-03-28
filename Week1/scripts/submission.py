@@ -42,9 +42,13 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 project_directory = os.path.join(current_directory, "")
 
 # Create the path to the image
-image_path = os.path.join(project_directory, "data/images", "truth.jpg")
+image_path = os.path.join(project_directory, "data/images", "truth.png")
+
+print(os.path.isfile(image_path))
 
 source = cv2.imread(image_path, 1)
+
+print(source)
 
 maxScaleUp = 100
 scaleFactor = 1
@@ -64,6 +68,7 @@ cv2.createTrackbar(trackbarType, windowName, scaleType, maxType,
                    scaleTypeImage)
 
 cv2.imshow(windowName, source)
+
 c = cv2.waitKey(0)
 
 cv2.destroyAllWindows()

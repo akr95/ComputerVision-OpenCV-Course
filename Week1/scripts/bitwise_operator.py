@@ -13,6 +13,8 @@ project_directory = os.path.join(current_directory, "..")
 # Create the path to the image
 image_path = os.path.join(project_directory, "data/images", "musk.jpg")
 
+print(image_path)
+
 print(cv2.__version__)
 
 # #### Read an image ####
@@ -41,6 +43,9 @@ bottomRightCol = topLeftCol + glassWidth
 
 # create face image with 3 channel
 glassMask = cv2.merge((glassAlpha, glassAlpha, glassAlpha))
+print("eye ", glassMask)
+plt.imshow(glassMask)
+plt.show()
 
 # make a copy of orginal image
 faceImageCopy = faceImage.copy()
@@ -54,19 +59,44 @@ print(eyeROI)
 eye = cv2.bitwise_and(eyeROI, cv2.bitwise_not(glassMask))
 
 print("eye ", eye)
+plt.imshow(eye)
+plt.show()
+
+print("glassBGR ", glassBGR)
+plt.imshow(glassBGR)
+plt.show()
 
 # Use the mask to create the masked sunglass region
 sunglass = cv2.bitwise_and(glassBGR, glassMask)
 
 print("sunglass ", sunglass)
+plt.imshow(sunglass)
+plt.show()
+
 
 # Combine the Sunglass in the Eye Region to get the augmented image
 eyeRoiFinal = np.clip(cv2.bitwise_xor(eye, sunglass), 0, 1)
 
+print("eyeRoiFinal ", eyeRoiFinal)
+plt.imshow(eyeRoiFinal)
+plt.show()
+
+# Ensure the glassMask is binary (only contains values of 0 or 255)
+glassMask = cv2.threshold(glassMask, 127, 255, cv2.THRESH_BINARY)[1]
+
 # add transparent into glass.
-maskedEyeB = cv2.addWeighted(eye, 0, glassMask, 0.5, 0.0)
+# this add weighted fnc blend the 2 images. 
+maskedEyeB = cv2.addWeighted(eyeRoiFinal, 0, glassMask, 0.5, 0.0)
+
+print("maskedEyeB ", maskedEyeB)
+plt.imshow(maskedEyeB)
+plt.show()
 
 maskedEye = cv2.multiply(eyeROI, 1-maskedEyeB)
+
+print("maskedEye ", maskedEye)
+plt.imshow(maskedEye)
+plt.show()
 
 # replace eyeROI with main image.
 faceImageCopy[topLeftRow:bottomRightRow,

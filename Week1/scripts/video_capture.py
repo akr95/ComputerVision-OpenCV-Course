@@ -11,9 +11,9 @@ project_directory = os.path.join(current_directory, "..")
 # Create the path to the image
 image_path = os.path.join(project_directory, "data/videos", "chaplin.mp4")
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 fourcc = cv2.VideoWriter_fourcc(*'X264')
-out = cv2.VideoWriter("output.mkv", fourcc, 30.0, (int(cap.get(3)),
+out = cv2.VideoWriter("output.mp4", fourcc, 30.0, (int(cap.get(3)),
                                                    int(cap.get(4))))
 
 width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)

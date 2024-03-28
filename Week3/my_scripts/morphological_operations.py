@@ -23,6 +23,11 @@ img = cv2.imread(image_path)
 k = (3, 3)
 kernel1 = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, k)
 
+# Structuring element look like.
+# 0 1 0
+# 1 1 1
+# 0 1 0
+
 # perform dilation by using dilate function.
 dst = cv2.dilate(img, kernel1, iterations=1)
 dst = cv2.dilate(img, kernel1, iterations=2)
