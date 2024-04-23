@@ -48,7 +48,7 @@ for i in range(ncomponents + 1):
     else:
         plt.title("component id {}".format(i))
 
-    # the following line to find the min, max pixela nd location values.
+    # the following line to find the min, max pixel and location values.
     (minVal, maxVal, minLoc, maxLoc) = cv2.minMaxLoc(imgLabels)
 
     # normalize the pixel value of the image, 0 to 255
