@@ -29,7 +29,8 @@ params.maxThreshold = 200
  
 # Filter by Area.
 params.filterByArea = True
-params.minArea = 1500
+
+params.minArea = 150
  
 # Filter by Circularity
 params.filterByCircularity = True
@@ -61,7 +62,7 @@ for k in keypoints:
     diameter = k.size
     radius = int(round(diameter/2))
     # Mark blob in RED
-    cv2.circle(img, (x, y), radius, (0, 0, 255), 2)
+    cv2.circle(img, (x, y), radius, (130, 0, 255), 2)
 
 # Let's see what image we are dealing with
 plt.imshow(img[:,:,::-1])
